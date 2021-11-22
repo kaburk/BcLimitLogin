@@ -53,15 +53,16 @@ class BcLimitLoginControllerEventListener extends BcControllerEventListener {
 
 			// ログイン履歴を取得
 			$limitCount = Configure::read('BcLimitLogin.LimitCount');
-			$limitMonth = (int) Configure::read('BcLimitLogin.LimitMonth');
+			$limitTime = (int) Configure::read('BcLimitLogin.LimitTime');
 			$count = $this->BcLimitLogin->find('count', [
 				'conditions' => [
 					'key' => $key,
 					'ip_address' => $ipAddress,
 					'login_status' => 0,
-					'modified >=' => date('Y-m-d H:i:s', strtotime(($limitMonth * -1) . ' minutes')),
+					'modified >=' => date('Y-m-d H:i:s', strtotime(($limitTime * -1) . ' minutes')),
 				],
 				'recursive' => -1,
+				'cache' => false,
 			]);
 			// 一定数のミスでログインを制限
 			if ($count > $limitCount) {
