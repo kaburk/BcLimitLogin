@@ -1,0 +1,10 @@
+.number {
+  text-align: right;
+}
+.bca-form-table .col-head {
+  white-space: nowrap;
+}
+.bca-main .bca-form-table pre {
+  max-width: 1024px;
+  overflow: scroll;
+}
